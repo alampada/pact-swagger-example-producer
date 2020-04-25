@@ -1,0 +1,72 @@
+{
+  "provider": {
+    "name": "employee-service"
+  },
+  "consumer": {
+    "name": "test_consumer"
+  },
+  "interactions": [
+    {
+      "description": "/employees/1",
+      "request": {
+        "method": "GET",
+        "path": "/employees/1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/hal+json"
+        },
+        "body": {
+          "name": "string",
+          "title": "string"
+        },
+        "matchingRules": {
+          "body": {
+            "$.name": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$.title": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            }
+          }
+        },
+        "generators": {
+          "body": {
+            "$.name": {
+              "type": "RandomString",
+              "size": 20
+            },
+            "$.title": {
+              "type": "RandomString",
+              "size": 20
+            }
+          }
+        }
+      },
+      "providerStates": [
+        {
+          "name": "Employee 1 exists"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.0.10"
+    }
+  }
+}
